@@ -15,9 +15,33 @@ app.controller('TaskController', ['$http', function ($http) {
             console.log('Response from POST: ', response);
             self.newTask.task = '';
             self.newTask.category = '';
-            // self.getTasks();
+            self.getTasks();
         }).catch(function (err) {
             console.log('Error from client POST:', err);
         });
     };
+
+    self.getTasks = function () {
+        $http({
+            url: '/tasks',
+            method: 'GET',
+        }).then(function (response) {
+            self.taskList = response.data;
+        }).catch(function (err) {
+            console.log('Error on GET', err);
+        });
+    }
+
+    self.delete = function (id) {
+        $http({
+            url: `/tasks/${id}`,
+            method: 'DELETE',
+        }).then(function (response) {
+            self.getTasks();
+        }).catch(function (err) {
+            console.log('Error on DELETE', err);
+        });
+    };
+
+    self.getTasks();
 }])
