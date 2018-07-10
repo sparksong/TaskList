@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Task List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/styles.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="vendors/bootstrap.min.css" />
+    <script src="vendors/angular.min.js"></script>
+    <script src="scripts/client.js"></script>
+</head>
+
+<body ng-app="TaskApp">
+    <div ng-controller="TaskController as vm">
+        <h1>Task List</h1>
+
+        <h2>Add Task</h2>
+        <input ng-style="vm.newTask.color" ng-model="vm.newTask.task" type="text" placeholder="task" />
+        <select ng-model="vm.newTask.category">
+            <option value="Work">Work</option>
+            <option value="Recreation">Recreation</option>
+        </select>
+
+        <input type="button" ng-click="vm.addTask(vm.newTask)">Add task</input>
+
+        <h2>Task List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Category</th>
+                    <th>Completion Status</th>
+                    <th>Completed?</th>
+                    <th>Delete?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in vm.taskList">
+                    <td ng-class="{'red': task.completed == false, 'blue': task.completed == true}">{{task.task}}</td>
+                    <td>{{task.category}}</td>
+                    <td>{{task.completed}}</td>
+                    <td>
+                        <input type="button" ng-if="!task.completed" ng-click="vm.toggleComplete(task)">Mark completed</input>
+                    </td>
+                    <td>
+                        <input type="button" ng-click="vm.delete(task._id)">Remove task</input>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
