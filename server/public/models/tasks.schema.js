@@ -11,6 +11,9 @@ let taskSchema = new Schema({
     },
     completed: {
         type: Boolean
+    },
+    createDate: {
+        type: Date
     }
 });
 

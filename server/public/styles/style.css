@@ -1,0 +1,24 @@
+body {
+    background-color: #379683;
+    color: #EDF5E1;
+}
+
+.titleHeader {
+    text-align: center;
+}
+
+.spacer {
+    padding: 20px;
+}
+
+.tableStyle {
+    border: 10px, solid, black;
+}
+
+.incompleteTask {
+    background-color: #C85B72;
+}
+
+.completeTask {
+    background-color: #379683;
+}

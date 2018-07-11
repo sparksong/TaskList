@@ -4,52 +4,70 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Task List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="styles/styles.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="vendors/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+
     <script src="vendors/angular.min.js"></script>
     <script src="scripts/client.js"></script>
 </head>
 
 <body ng-app="TaskApp">
     <div ng-controller="TaskController as vm">
-        <h1>Task List</h1>
 
-        <h2>Add Task</h2>
-        <input ng-style="vm.newTask.color" ng-model="vm.newTask.task" type="text" placeholder="task" />
-        <select ng-model="vm.newTask.category">
-            <option value="Work">Work</option>
-            <option value="Recreation">Recreation</option>
-        </select>
+        <div class="container">
+            <div class="col-xs-12">
+                <hr>
+                <h1 class="titleHeader">Task's list</h1>
+                <hr>
+            </div>
 
-        <input type="button" ng-click="vm.addTask(vm.newTask)">Add task</input>
+            <div class="container text-center">
+                <input ng-style="vm.newTask.color" ng-model="vm.newTask.task" type="text" placeholder="Task" />
+                <select ng-model="vm.newTask.category">
+                    <option value="" selected disabled hidden>Task category</option>
+                    <option value="Work">Work</option>
+                    <option value="Recreation">Recreation</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="button" class="btn-info" ng-click="vm.addTask(vm.newTask)" value="Create task" />
+            </div>
 
-        <h2>Task List</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Category</th>
-                    <th>Completion Status</th>
-                    <th>Completed?</th>
-                    <th>Delete?</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="task in vm.taskList">
-                    <td ng-class="{'red': task.completed == false, 'blue': task.completed == true}">{{task.task}}</td>
-                    <td>{{task.category}}</td>
-                    <td>{{task.completed}}</td>
-                    <td>
-                        <input type="button" ng-if="!task.completed" ng-click="vm.toggleComplete(task)">Mark completed</input>
-                    </td>
-                    <td>
-                        <input type="button" ng-click="vm.delete(task._id)">Remove task</input>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="spacer"></div>
+
+            <div class="container">
+                <h2>Task List</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Category</th>
+                            <th>Create date</th>
+                            <th>Completed?</th>
+                            <th>Delete?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="task in vm.taskList" ng-class="{'incompleteTask': task.completed == false, 'completeTask': task.completed == true}">
+                            <td>{{task.task}}</td>
+                            <td>{{task.category}}</td>
+                            <td>{{task.createDate | date:"MM/dd/yyyy"}}</td>
+                            <td>
+                                <input type="button" class="btn-primary" ng-if="!task.completed" ng-click="vm.toggleComplete(task)" value="Mark complete"
+                                />
+                            </td>
+                            <td>
+                                <input type="button" class="btn-warning" ng-click="vm.delete(task._id)" value="Remove task" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 </body>
 
